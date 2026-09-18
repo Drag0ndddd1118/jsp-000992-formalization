@@ -34,3 +34,42 @@ Specifically, if $a$ and $a+p$ have the same residue modulo 4, then $(a+p) \equi
 ```bash
 lake build
 ```
+
+## Statement of record — `Challenge.lean`
+
+`Challenge.lean` declares the definitions the problem is phrased with and the proposition
+`JSP_000992.jsp000992Statement`. It proves nothing, so a reviewer has only to read that one file to judge *what* has
+been claimed.
+
+```lean
+  Not (∀ (c k : Nat), 0 < c → 3 ≤ k → ∀ color : Nat → Fin c,
+        ∃ a p : Nat, Prime p ∧ MonochromaticAP color a p k)
+```
+
+## Proof — `Submission.lean`
+
+`Submission.lean` imports `Challenge.lean`, so the proof and the statement refer to the *same*
+`JSP_000992.jsp000992Statement` constant and cannot drift apart. The top-level result is
+
+```lean
+JSP_000992.jsp_000992
+```
+
+It depends on `propext` only, and the file contains no `sorry`, no `admit` and no `axiom`
+declaration. `check.py` type-checks the bridge
+
+```
+example : JSP_000992.jsp000992Statement := JSP_000992.jsp_000992
+```
+
+and re-runs the axiom audit.
+
+## Build and check
+
+```sh
+lake build
+python3 check.py
+```
+
+Toolchain: `leanprover/lean4:v4.34.0` (commit `293d5d0c0c3f3dded4688b3ccd6a33939ac5102b`). The development is self-contained:
+it uses Lean core only and depends on no external library.

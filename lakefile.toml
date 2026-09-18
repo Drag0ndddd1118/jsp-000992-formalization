@@ -1,8 +1,13 @@
 name = "jsp_000992_formalization"
 version = "0.1.0"
-defaultTargets = ["JSP_000992"]
+defaultTargets = ["Challenge", "Submission"]
 
 [[lean_lib]]
-name = "JSP_000992"
+name = "Challenge"
 srcDir = "."
-roots = ["JSP_000992"]
+roots = ["Challenge"]
+
+[[lean_lib]]
+name = "Submission"
+srcDir = "."
+roots = ["Submission"]

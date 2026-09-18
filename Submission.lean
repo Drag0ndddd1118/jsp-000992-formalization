@@ -16,26 +16,9 @@ Soundness & Verification:
 - Kernel axioms: only [propext].
 -/
 
+import Challenge
+
 namespace JSP_000992
-
-/-- An integer p is prime if p ≥ 2 and its only divisors are 1 and p. -/
-def Prime (p : Nat) : Prop :=
-  2 ≤ p ∧ ∀ d : Nat, d ∣ p → d = 1 ∨ d = p
-
-/-- A k-term arithmetic progression starting at a with step d is monochromatic under coloring `color`. -/
-def MonochromaticAP {c : Nat} (color : Nat → Fin c) (a d k : Nat) : Prop :=
-  ∀ i : Nat, i < k → color (a + i * d) = color a
-
-/-- The statement of the prime common difference conjecture:
-for every finite coloring (c colors) and every length k ≥ 3, there exists a monochromatic
-arithmetic progression of length k whose common difference p is prime. -/
-def PrimeStepProgressionConjecture : Prop :=
-  ∀ (c k : Nat), 0 < c → 3 ≤ k → ∀ color : Nat → Fin c,
-    ∃ a p : Nat, Prime p ∧ MonochromaticAP color a p k
-
-/-- Canonical 4-coloring by residue modulo 4: color4(n) = n % 4. -/
-def color4 (n : Nat) : Fin 4 :=
-  ⟨n % 4, Nat.mod_lt n (by decide)⟩
 
 private theorem add_mod_four_eq_self_implies_zero
     (r s : Nat) (hr : r < 4) (hs : s < 4)
@@ -163,7 +146,6 @@ theorem jsp_000992 :
       ∃ a p : Nat, Prime p ∧ MonochromaticAP color a p k) := by
   exact jsp_000992_solution
 
-#print axioms jsp_000992_solution
-#print axioms jsp_000992
-
 end JSP_000992
+
+#print axioms JSP_000992.jsp_000992
